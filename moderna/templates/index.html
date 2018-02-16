@@ -1,0 +1,52 @@
+<!-- extend from base.html -->
+{% extends "base.html" %}
+{% load i18n  mezzanine_tags staticfiles%}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "css/home.css" %}">
+{% endblock %}
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+{% block title %}{% trans "Home" %}{% endblock %}
+{% block breadcrumb_wrapper %}
+{% endblock %}
+
+{% block title_wrapper %}
+{% endblock %}
+
+{% block breadcrumb_menu %}
+<li class="active">{% trans "Home" %}</li>
+{% endblock %}
+
+
+{% block all_content %}
+<section id="{% block section_id %}featured{% endblock %}">
+{% block left_wrapper %}
+{% endblock %}
+
+
+{% block main_wrapper %}
+<div class="col-md-{% block main_col_size %}none{% endblock %} {% block main_class %}{% endblock %}">
+{% block main %}
+
+{% endblock %}
+</div>
+{% endblock %}
+{% block right_wrapper %}
+{% endblock %}
+</section>
+
+
+<section class="callaction">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<img class="home-image" src="{% static "img/giphy.gif" %}"  >
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% endblock %}
+{% compress js %}
+<script src="{% static "js/home.js" %}"></script>
+{% endcompress %}

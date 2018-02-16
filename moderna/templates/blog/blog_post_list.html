@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load i18n mezzanine_tags blog_tags keyword_tags disqus_tags staticfiles%}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/clean-blog.min.css" %}">
+{% endblock %}
+{% block meta_title %}
+    {% if page %}
+        {{ page.meta_title }}
+    {% else %}
+        {% trans "Blog" %}
+    {% endif %}
+{% endblock %}
+{% block meta_keywords %}{% metablock %}
+{% keywords_for page as keywords %}
+{% for keyword in keywords %}
+    {% if not forloop.first %}, {% endif %}
+    {{ keyword }}
+{% endfor %}
+{% endmetablock %}{% endblock %}
+
+{% block meta_description %}{% metablock %}
+{{ page.description }}
+{% endmetablock %}{% endblock %}
+
+{% block title_wrapper %}
+{% endblock %}
+
+
+{% block breadcrumb_menu %}
+{{ block.super }}
+{% if tag or category or year or month or author %}
+<li>{% spaceless %}
+{% if tag %}
+    {% trans "Tag:" %} {{ tag }}
+{% else %}{% if category %}
+    {% trans "Category:" %} {{ category }}
+{% else %}{% if year or month %}
+    {% if month %}{{ month }}, {% endif %}{{ year }}
+{% else %}{% if author %}
+    {% trans "Author:" %} {{ author.get_full_name|default:author.username }}
+{% endif %}{% endif %}{% endif %}{% endif %}
+{% endspaceless %}
+</li>
+{% endif %}
+{% endblock %}
+
+
+
+{% block left_wrapper %}
+
+{% endblock %}
+<div class="col-md-8">
+{% block main %}
+
+{% if tag or category or year or month or author %}
+    {% block blog_post_list_filterinfo %}
+    <p>
+    {% if tag %}
+        {% trans "Viewing posts tagged" %} {{ tag }}
+    {% else %}{% if category %}
+        {% trans "Viewing posts for the category" %} {{ category }}
+    {% else %}{% if year or month %}
+        {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
+        {{ year }}
+    {% else %}{% if author %}
+        {% trans "Viewing posts by" %}
+        {{ author.get_full_name|default:author.username }}
+    {% endif %}{% endif %}{% endif %}{% endif %}
+    {% endblock %}
+    </p>
+{% else %}
+    {% if page %}
+    {% block blog_post_list_pagecontent %}
+    {% if page.get_content_model.content %}
+        {% editable page.get_content_model.content %}
+        {{ page.get_content_model.content|richtext_filters|safe }}
+        {% endeditable %}
+    {% endif %}
+    {% endblock %}
+    {% endif %}
+{% endif %}
+
+
+<!-- start of blog iteration -->
+{% for blog_post in blog_posts.object_list %}
+	{% block blog_post_main%}
+
+    <div class="post-preview">
+            <a href="{{ blog_post.get_absolute_url }}">
+            {% block blog_post_list_post_title %}
+              <h2 class="post-title">
+                {{ blog_post.title }}
+              </h2>
+            {% endblock %}
+              <h3 class="post-subtitle">
+        <!-- main body of blog preview -->
+                {% block blog_post_list_post_content %}
+                {% editable blog_post.content %}
+                {{ blog_post.description_from_content|safe }}
+                {% endeditable %}
+                {% endblock %}
+        <!-- end of blog main body preview -->
+              </h3>
+            </a>
+            {% block blog_post_list_post_metainfo %}
+            <p class="post-meta">
+                Posted{% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
+            </p>
+             <p class="post-meta">
+             {% with blog_post.categories.all as categories %}
+                    {% if categories %}
+                    <li><i class="icon-folder-open"></i>
+                    {% for category in categories %}
+                    <a class="badge badge-secondary" href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>{% if not forloop.last %} {% endif %}
+                    {% endfor %}
+                    </li>
+                    {% endif %}
+                {% endwith %}
+             </p>
+            <p class="post-meta">
+            {% block read_more%}
+                <a href="{{ blog_post.get_absolute_url }}">Continue reading -><i class="icon-angle-right"></i></a>
+                {% endblock %}
+            </p>
+            {% endblock %}
+          </div>
+          <hr>
+     {% endblock %}
+{% endfor %}
+<!-- end of iteration -->
+
+         {% pagination_for blog_posts %}
+
+
+
+{% if settings.COMMENTS_DISQUS_SHORTNAME %}
+{% include "generic/includes/disqus_counts.html" %}
+{% endif %}
+
+{% endblock %}
+
+</div><!-- END MAIN -->

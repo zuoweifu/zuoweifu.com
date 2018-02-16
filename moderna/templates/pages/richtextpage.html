@@ -1,0 +1,27 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles%}
+
+{% block extra_css %}
+ <link rel="stylesheet" href="{% static "css/aboutme.css" %}">
+{% endblock %}
+
+{% block left_wrapper %}
+{% endblock %}
+ 
+<div class="col-md-{% block main_col_size %}8{% endblock %}">
+{% block main %}
+
+            <ul class="text hidden">
+                  <li>F</li>
+                  <li class="ghost">U</li>
+                  <li>Z</li>
+                  <li class="ghost">U</li>
+                  <li class="ghost">O</li>
+                  <li>W</li>
+                  <li class="ghost">E</li>
+                  <li class="ghost">I</li>
+                </ul>
+{% endblock %}
+</div>
+

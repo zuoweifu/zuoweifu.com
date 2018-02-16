@@ -1,0 +1,51 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "mezzanine/css/magnific-popup.css" %}">
+<link rel="stylesheet" href="{% static "css/fancybox/jquery.fancybox.css" %}">
+{% endblock extra_css %}
+{% block left_wrapper %}
+{% endblock %}
+<div class="col-md-{% block main_col_size %}12{% endblock %}">
+{% block main %}
+{{ block.super }}
+
+{% editable page.gallery.content %}
+{{ page.gallery.content|richtext_filters|safe }}
+{% endeditable %}
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="row">
+			<section id="projects">
+			{% with page.gallery.images.all as images %}
+				 <ul class="portfolio" id="thumbs">
+				 <div class="card-columns">
+					{% for image in images %}
+						<a href="{{ image.file.url }}" title="{{ image.description }}" data-fancybox-group="gallery" class="hover-wrap fancybox">
+							<div class="card">
+						<img class="card-img-top" alt="{{ image.description }}" src="{{ MEDIA_URL }}{% thumbnail image.file 400 400 %}">
+						<div class="card-body">
+						    <p class="card-text">{{ image.description }}</p>
+						  </div>
+						</div>
+						</a>
+					{% endfor %}
+					</div>
+				</ul>
+			</section>
+		</div>		
+	</div>	
+{% endwith %}
+</div>
+{% endblock %}
+</div>
+{% block right_wrapper %}
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+
+
+{% endblock %}

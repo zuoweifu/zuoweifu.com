@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+{% load pages_tags mezzanine_tags i18n staticfiles %}
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <title>zuowei fu</title>
+
+    {% ifinstalled mezzanine.blog %}
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
+    <link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
+    {% endifinstalled %}
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}">
+        <link rel="stylesheet" href="{% static "css/simple-sidebar.css" %}">
+        <link rel="stylesheet" href="{% static "css/photoindex.css" %}">
+        <link rel="stylesheet" href="{% static "vendor/font-awesome/css/font-awesome.min.css" %}">
+        <link rel="stylesheet" href="{% static "vendor/devicons/css/devicons.min.css" %}">
+        <link rel="stylesheet" href="{% static "vendor/simple-line-icons/css/simple-line-icons.css" %}">
+        
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+        
+
+        {% if LANGUAGE_BIDI %}
+        <!--<link rel="stylesheet" href="{% static "css/rtl.css" %}">-->
+        {% endif %}
+
+        {% ifinstalled cartridge.shop %}
+        <!--<link rel="stylesheet" href="{% static "css/cartridge.css" %}">-->
+        {% if LANGUAGE_BIDI %}
+        <!--<link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">-->
+        {% endif %}
+        {% endifinstalled %}
+
+        {% block extra_css %}{% endblock %}
+    {% endcompress %}
+
+    {% compress js %}
+        <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+        <script src="{% static "js/bootstrap.js" %}"></script>
+        <script src="{% static "js/bootstrap-extras.js" %}"></script>
+        {% block extra_js %}{% endblock %}
+        {% include "includes/footer_scripts.html" %}
+    {% endcompress %}
+
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
+<![endif]-->
+
+    {% block extra_head %}{% endblock %}
+
+
+</head>
+
+<body id="{% block body_id %}body{% endblock %}">
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            {% page_menu "pages/menus/dropdown.html" %}
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <a href="#menu-toggle" style="position:fixed;text-decoration: none;color:black;font-size:30px;cursor:pointer" id="menu-toggle">&#9776;</a>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+
+                
+{% block all_content %}
+
+
+
+        <div class="container">
+            {% nevercache %}
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endnevercache %}
+        </div>
+
+
+
+        {% block title_wrapper %}
+            <section class="callaction">
+            	<div class="container">
+            		<div class="row">
+            			<div class="col-lg-12">
+            				<div class="big-cta">
+            					<div class="cta-text">
+            					<h2>{% block title %}{% endblock %}</h2>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </section>
+        {% endblock %}
+
+    <section id="{% block section_id %}content{% endblock %}">
+        <div class="container">
+            <div class="row">
+                {% block left_wrapper %}
+            	<div class="col-md-{% block left_col_size %}1{% endblock %} {% block left_class %}left{% endblock %}">
+            		{% block left_panel %}
+            		
+            		{% endblock %}
+            	</div>
+                {% endblock %}
+
+                {% block main_wrapper %}
+                <div class="col-md-{% block main_col_size %}10{% endblock %} {% block main_class %}middle{% endblock %}">
+                    {% block main %}{% endblock %}
+                </div>
+                {% endblock %}
+
+                {% block right_wrapper %}
+                    <div class="col-md-{% block right_col_size %}1{% endblock %} {% block right_class %}right{% endblock %}">
+                        {% nevercache %}
+                        {% include "includes/user_panel.html" %}
+                        {% endnevercache %}
+                    	<aside class="right-sidebar">
+                        {% block right_panel %}
+                        {% ifinstalled mezzanine.twitter %}
+                        {% include "twitter/tweets.html" %}
+                        {% endifinstalled %}
+                        {% endblock %}
+    	                </aside>
+                        </div>
+                        {% endblock %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 foot-author">
+                     <p>Made by zuowei.fu with ❤️ </p>
+                </div>
+                <div class="col-lg-6">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/zuowei.fu"><i class="fa fa-facebook-square" style="color:rgb(0,0,0);"></i></a>
+                    <a title="" data-placement="top" href="https://www.linkedin.com/in/zuowei-fu-098531102/" data-original-title="Linkedin"><i class="fa fa-linkedin" style="color:rgb(0,0,0);"></i></a>
+                    <a title="" data-placement="top" href="https://github.com/zuoweifu" data-original-title="Github"><i class="fa fa-github-square" style="color:rgb(0,0,0);"></i></a>
+                </div> 
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+{% compress js %}
+<script src="{% static "js/aboutme.js" %}"></script>
+<script src="{% static "js/jquery.easing.1.3.js"%}"></script>
+<script src="{% static "js/jquery.fancybox.pack.js"%}"></script>
+<script src="{% static "js/jquery.fancybox-media.js"%}"></script>
+<script src="{% static "js/google-code-prettify/prettify.js"%}"></script>
+<script src="{% static "js/portfolio/jquery.quicksand.js"%}"></script>
+<script src="{% static "js/portfolio/setting.js"%}"></script>
+<script src="{% static "js/jquery.flexslider.js"%}"></script>
+<script src="{% static "js/animate.js"%}"></script>
+<script src="{% static "js/custom.js"%}"></script>
+<script src="{% static "js/resume.min.js"%}"></script>
+<script src="{% static "js/vendor/jquery/jquery.min.js"%}"></script>
+<script src="{% static "js/vendor/bootstrap/js/bootstrap.bundle.min.js"%}"></script>
+<script src="{% static "js/vendor/jquery-easing/jquery.easing.min.js"%}"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+{% endcompress %}
+</body>
+</html>
