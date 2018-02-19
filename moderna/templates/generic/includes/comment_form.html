@@ -1,7 +1,7 @@
 {% load i18n mezzanine_tags comment_tags %}
 
 <form method="post" id="contactform" action="{{ comment_url }}#comment">
-   
+   {% csrf_token %}
 	{% for hidden in comment_form.hidden_fields %}
     {{ hidden }}
     {% endfor %}

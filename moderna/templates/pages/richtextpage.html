@@ -3,25 +3,22 @@
 {% load mezzanine_tags staticfiles%}
 
 {% block extra_css %}
- <link rel="stylesheet" href="{% static "css/aboutme.css" %}">
+ <link rel="stylesheet" href="{% static "css/about.css" %}">
 {% endblock %}
 
 {% block left_wrapper %}
 {% endblock %}
  
-<div class="col-md-{% block main_col_size %}8{% endblock %}">
 {% block main %}
-
-            <ul class="text hidden">
-                  <li>F</li>
-                  <li class="ghost">U</li>
-                  <li>Z</li>
-                  <li class="ghost">U</li>
-                  <li class="ghost">O</li>
-                  <li>W</li>
-                  <li class="ghost">E</li>
-                  <li class="ghost">I</li>
-                </ul>
+    <div class="container-fluid fill light-white-font">
+      <div id="home" class="container-fluid fill dark-gray-background">
+        <h1 class="center text-center">
+          <p>Hi, my name is <strong class="middle-blue-font">Rodrigo Medeiros</strong></p>
+          <p>and I'm <span class="element"></span></p>
+          <p>living in <strong class="middle-blue-font">Brazil</strong>.</p>
+        </h1>
+      </div>
+    </div>
 {% endblock %}
-</div>
+
 

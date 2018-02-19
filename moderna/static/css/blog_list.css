@@ -1,0 +1,28 @@
+.search-input{
+  border:none;
+  border-radius: 15px;
+  height: 50px;
+}
+.search-input-row{
+  padding:5px;
+  margin-left:1px;
+}
+.search-button{
+  background-color: black;
+}
+input:focus {
+    outline:none;
+}
+.recent-post-row{
+    padding: 10px;
+}
+.recent-post{
+    color: black;
+}
+a {
+  color: #000000;
+  text-decoration: none; /* no underline */
+}
+a:hover{
+    color: #000000;
+}

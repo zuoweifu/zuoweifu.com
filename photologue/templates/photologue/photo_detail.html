@@ -1,33 +1,40 @@
 {% extends "photologue/root.html" %}
-{% load photologue_tags i18n %}
-
+{% load photologue_tags i18n staticfiles%}
+ {% block extra_css %}
+ <link rel="stylesheet" href="{% static "css/photodetail.css" %}">
+ <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poiret+One|Raleway:500" rel="stylesheet">
+ {% endblock %}
 {% block main %}
 
-    <div class="row col-lg-12">
-        <h1 class="page-header">{{ object.title }}</h1>
-        <p class="muted"><small>{% trans "Published" %} {{ object.date_added }}</small></p>
-    </div>
-
     <div class="row">
-        <div class="col-md-6">
-		    {% if object.caption %}<p>{{ object.caption|safe }}</p>{% endif %}
-		    <a href="{{ object.image.url }}">
-		        <img src="{{ object.get_display_url }}" class="thumbnail" alt="{{ object.title }}">
-		    </a>
-        </div>
-        <div class="col-md-6">
+        <div class="col-lg-1 prev-img">
             {% if object.public_galleries %}
-                <p>{% trans "This photo is found in the following galleries" %}:</p>
-                <table>
+                        {% for gallery in object.public_galleries %}
+                           {% previous_in_gallery object gallery %}
+                        {% endfor %}
+                {% endif %}     
+        </div>
+        <div class="col-lg-10 display-img">
+	        <img src="{{ object.image.url }}" class="display" alt="{{ object.title }}">
+            <h1 class="page-header">{{ object.title }}</h1>
+            {% if object.caption %}<p>{{ object.caption|safe }}</p>{% endif %}
+            {% if object.public_galleries %}
                     {% for gallery in object.public_galleries %}
-                        <tr>
-                            <td>{% previous_in_gallery object gallery %}</td>
-	                        <td class="text-center"><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></td>
-	                        <td>{% next_in_gallery object gallery %}</td>
-                        </tr>
+                            <a href="{{ gallery.get_absolute_url }}" class="badge badge-light">{{ gallery.title }}</a>
+                    {% endfor %}
+            {% endif %}  
+            <p class="muted"><small>{% trans "Published on" %} {{ object.date_added }}</small></p>
+            <p class="muted"><small>Taken on {{ object.date_taken }}</small></p>
+            <p class="muted"><small>Being viewed: {{ object.view_count }}</small></p>
+            <p class="muted"><small>Camera: {{ object.manufacture }}</small></p>
+        </div>
+        <div class="col-lg-1 next-img">
+            {% if object.public_galleries %}
+                    {% for gallery in object.public_galleries %}
+                        {% next_in_gallery object gallery %}
 					{% endfor %}
-				</table>
-			{% endif %}
+			{% endif %}     
         </div>
     </div>
 

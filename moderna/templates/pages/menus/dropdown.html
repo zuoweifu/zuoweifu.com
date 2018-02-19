@@ -3,16 +3,18 @@
 {% if page_branch_in_menu %}
 
 {% if branch_level == 0 %}
-<ul class="sidebar-nav">
+
+
+<ul class="navbar-nav mr-auto">
     {% for page in page_branch %}
     {% if not has_home and page.is_primary and forloop.first %}
-    <li class="sidebar-brand">
-        <a class="nav-link js-scroll-trigger" href="{% url "home" %}">{% trans "Home" %}</a>
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url "home" %}">{% trans "Home" %}</a>
     </li>
     {% endif %}
     {% if page.in_menu %}
-    <li class="sidebar-brand">
-        <a class="nav-link js-scroll-trigger" href="{{ page.get_absolute_url }}"
+    <li class="nav-item">
+        <a class="nav-link" href="{{ page.get_absolute_url }}"
         {% if page.has_children_in_menu %}
         class="dropdown-toggle disabled" data-toggle="dropdown"
         {% endif %}>
@@ -24,6 +26,7 @@
     {% endif %}
     {% endfor %}
 </ul>
+
 
 {% else %}
 <ul class="dropdown-menu">
@@ -39,6 +42,5 @@
     {% endfor %}
 </ul>
 {% endif %}
-
 {% endif %}
 {% endspaceless %}

@@ -1,0 +1,45 @@
+.display{
+    width: 100%;
+    height: auto;
+}
+.prev-img{
+    width: 60px;
+    height: 60px;
+}
+.prev-img img{
+    width: 100%;
+    display: block ;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+.next-img{
+    width: 60px;
+    height: 60px;
+}
+.next-img img{
+    width: 100%;
+    display: block ;
+    margin-left: auto ;
+    margin-right: auto ;
+
+}
+.display-img img{
+    display: block ;
+    margin-left: auto ;
+    margin-right: auto ;
+
+}
+.display-img h1{
+    font-family: 'Poiret One', cursive;
+}
+.badge{
+    font-size: 15px;
+}
+@media screen and (max-width: 1000px) {
+    .prev-img{
+        display: none;
+    }
+    .next-img{
+        display: none;
+    }
+}

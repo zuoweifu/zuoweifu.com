@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,700');
+
+
+ * {
+-webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+        box-sizing: border-box;
+}
+
+
+
+p {
+  margin-bottom: 1.5em;
+}
+
+hr {
+  background-color: #ccc;
+  border: none;
+  height: 1px;
+  margin: 2em 0;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 21px;
+}
+
+h3  {
+  font-size: 21px;
+  margin-bottom: 21px;
+}
+
+.container {
+  background: white;
+  margin: 0 auto;
+  padding: 4em;
+}
+
+
+/***********************************************************************************************/
+/* Button */
+/***********************************************************************************************/
+.go-top {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  text-decoration: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  padding: 1em;
+  display: none;
+}
+
+.go-top:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+.header{
+    padding: 30px;
+}
+.navbar-nav{
+    text-align: center;
+}
+.footer-copyright{
+    font-family: 'Indie Flower', cursive;
+}
+.social-icons{
+    font-size: 40px;
+}
+.icons:hover{
+    opacity: 0.5;
+}
+.nav-link{
+  font-family: 'Muli', sans-serif;
+  font-size: 20px;
+}

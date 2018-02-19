@@ -261,6 +261,8 @@ class ImageModel(models.Model):
                                related_name="%(class)s_related",
                                verbose_name=_('effect'),
                                on_delete=models.CASCADE)
+    manufacture = models.CharField(max_length=200,null=True,
+                                    blank=True,)
 
     class Meta:
         abstract = True
