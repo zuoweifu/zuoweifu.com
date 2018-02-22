@@ -1,18 +1,38 @@
 {% extends "photologue/root.html" %}
-{% load i18n %}
-
+{% load i18n staticfiles%}
+ {% block extra_css %}
+ <link rel="stylesheet" href="{% static "css/photoindex.css" %}">
+ <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+ {% endblock %}
 {% block main %}
 
-	<div class="row col-lg-12">
-        <h1 class="page-header">{{ gallery.title }}</h1>
-        <p class="muted"><small>{% trans "Published" %} {{ gallery.date_added }}</small></p>        
-        {% if gallery.description %}{{ gallery.description|safe }}{% endif %}
-	    {% for photo in gallery.public %}
-	        <a href="{{ photo.get_absolute_url }}">
-	             <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
-	        </a>
-	    {% endfor %}
-        <div><a href="{% url 'photologue:gallery-list' %}" class="btn btn-default">{% trans "View all galleries" %}</a></div>
-	</div>
+
+    <div class="row">
+
+    <div class="col-lg-4"><h1 class="page-header"><a href="{% url 'photologue:gallery-list' %}"  class="badge badge-secondary">{{ gallery.title }}</a></h1></div>
+     
+    </div>
+
+
+    <div class="row col-lg-12">
+        <p>{% if gallery.description %}{{ gallery.description|safe }}{% endif %}</p>
+    </div>
+        <div class="row col-lg-12">
+            <div class="card-columns">
+                 {% for photo in gallery.public %}
+                    <div class="card">
+                        <a href="{{ photo.get_absolute_url }}">
+                         <img src="{{ photo.get_thumbnail_url }}" class="card-img thumbnail" alt="{{ photo.title }}">
+                         <!--
+                         <div class="photo-hover">
+                            <div class="photo-title">{{photo.title}}</div>
+                        </div>
+                        -->
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
 
 {% endblock %}

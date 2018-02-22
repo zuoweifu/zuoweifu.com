@@ -1,6 +1,9 @@
 {% extends "photologue/root.html" %}
-{% load i18n %}
-
+{% load i18n staticfiles%}
+ {% block extra_css %}
+ <link rel="stylesheet" href="{% static "css/photoindex.css" %}">
+ <link href="https://fonts.googleapis.com/css?family=PT+Sans:700" rel="stylesheet">
+ {% endblock %}
 {% block title %}{% trans "All galleries" %}{% endblock %}
 
 {% block main %}
@@ -12,14 +15,29 @@
     {% if object_list %}
         {% for gallery in object_list %}
             <div class="row col-lg-12">
-                <h2><a href="{{ gallery.get_absolute_url }}">{{ gallery.title }}</a></h2>
-                <p class="muted"><small>{% trans "Published" %} {{ gallery.date_added }}</small></p>
-                {% if gallery.description %}<p>{{ gallery.description|safe }}</p>{% endif %}
-                {% for photo in gallery.sample %}
-                    <a href="{{ photo.get_absolute_url }}">
-                         <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
-                    </a>
-                {% endfor %}
+                <div class="row col-lg-12">
+                    <h1 class="page-header"><a href="{{ gallery.get_absolute_url }}"  class="badge badge-secondary">{{ gallery.title }}</a></h1>
+                </div>
+                <div class="row col-lg-12">
+                    {% if gallery.description %}<p>{{ gallery.description|safe }}</p>{% endif %}
+                </div> 
+
+                <div class="row col-lg-12">
+                    <div class="card-columns"> 
+                        {% for photo in gallery.sample %}
+                            <div class="card">
+                            <a href="{{ photo.get_absolute_url }}">
+                                <img src="{{ photo.get_thumbnail_url }}" class="card-img thumbnail" alt="{{ photo.title }}">
+                                <!--
+                                <div class="photo-hover">
+                                    <div class="photo-title">{{photo.title}}</div>
+                                </div>
+                                -->
+                            </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         {% endfor %}
     {% else %}

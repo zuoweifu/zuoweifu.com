@@ -18,6 +18,9 @@ a:hover {
     font-family: 'PT Sans', sans-serif;
     letter-spacing: 0.0238095em;
 }
+.paginate{
+  font-size: 24px;
+}
 .card {
     height: 300px;
     width: 300px;
@@ -50,7 +53,4 @@ a:hover {
 }
 .card:hover .photo-hover {
   opacity: 1;
-}
-.paginate{
-  font-size: 24px;
 }

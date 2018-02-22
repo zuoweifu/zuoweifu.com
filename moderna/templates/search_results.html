@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% load i18n mezzanine_tags %}
+{% load i18n mezzanine_tags staticfiles%}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/search.css" %}">
+{% endblock %}
 
 {% block meta_title %}{% trans "Search Results" %}{% endblock %}
 {% block title %}{% trans "Search Results" %}{% endblock %}
@@ -8,35 +11,30 @@
 <meta name="robots" content="noindex">
 {% endblock %}
 
-{% block breadcrumb_menu %}
-<li>
-    <a href="{% url "home" %}">{% trans "Home" %}</a>
-</li>
-<li class="active">{% trans "Search Results" %}</li>
-{% endblock %}
 
 {% block main %}
 
 {% if results.paginator.count == 0 %}
 <p>
 {% blocktrans %}
-No results were found in {{ search_type }} matching your query: {{ query }}
+No results were found based on your search: "{{ query }}"
 {% endblocktrans %}
 {% else %}
 {% blocktrans with start=results.start_index end=results.end_index total=results.paginator.count %}
-Showing {{ start }} to {{ end }} of {{ total }} results in {{ search_type }} matching your query: {{ query }}
+Showing {{ start }} to {{ end }} of {{ total }} results based on your search: "{{ query }}"
 {% endblocktrans %}
 {% endif %}
 </p>
 
-<div id="search-results">
     {% for result in results.object_list %}
-    <h5>{{ forloop.counter0|add:results.start_index }})
-        <a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
-    <p>{{ result.description|truncatewords_html:20|safe }}</p>
-    <a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>
+    <div class="row">
+        <h5>{{ forloop.counter0|add:results.start_index }})
+            <a href="{{ result.get_absolute_url }}">{{ result }}</a></h5>
+        <p>{{ result.description|truncatewords_html:30|safe }}</p>
+        <!--<a href="{{ result.get_absolute_url }}">{% trans "read more" %}</a>-->
+    </div>
     {% endfor %}
-</div>
+
 
 {% pagination_for results %}
 
