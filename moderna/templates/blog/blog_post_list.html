@@ -110,106 +110,80 @@
 
 
 
-    {% block blog_keywords %}
-    {% keywords_for blog.blogpost as tags %}
-    {% if tags %}
-    <h3>{% trans "Tags" %}</h3>
-    <ul class="list-inline tag-cloud">
-    {% for tag in tags %}
-    <li>
-        <a href="{% url "blog_post_list_tag" tag.slug %}"
-            class="tag-weight-{{ tag.weight }}">{{ tag }}</a>
-        ({{ tag.item_count }})
-    </li>
-    {% endfor %}
-    </ul>
-    {% endif %}
-    {% endblock %}
-
-
-
-    {% if tag or category or year or month or author %}
-        {% block blog_post_list_filterinfo %}
-        <p>
-        {% if tag %}
-            {% trans "Viewing posts tagged" %} {{ tag }}
-        {% else %}{% if category %}
-            {% trans "Viewing posts for the category" %} {{ category }}
-        {% else %}{% if year or month %}
-            {% trans "Viewing posts from" %} {% if month %}{{ month }}, {% endif %}
-            {{ year }}
-        {% else %}{% if author %}
-            {% trans "Viewing posts by" %}
-            {{ author.get_full_name|default:author.username }}
-        {% endif %}{% endif %}{% endif %}{% endif %}
-        {% endblock %}
-        </p>
-    {% else %}
-        {% if page %}
-        {% block blog_post_list_pagecontent %}
-        {% if page.get_content_model.content %}
-            {% editable page.get_content_model.content %}
-            {{ page.get_content_model.content|richtext_filters|safe }}
-            {% endeditable %}
-        {% endif %}
-        {% endblock %}
-        {% endif %}
-    {% endif %}
     </div>
 
     <div class="col-lg-9">
 
-    <!-- start of blog iteration -->
-    {% for blog_post in blog_posts.object_list %}
-    	{% block blog_post_main%}
+        <!-- start of blog iteration -->
+        {% for blog_post in blog_posts.object_list %}
+        	{% block blog_post_main%}
 
-        <div class="post-preview">
+            <div class="post-preview">
+
+
+                <!-- title -->
                 <a href="{{ blog_post.get_absolute_url }}">
                 {% block blog_post_list_post_title %}
-                  <h2 class="post-title">
+                  <h1 class="post-title">
                     {{ blog_post.title }}
-                  </h2>
+                  </h1>
                 {% endblock %}
-                  <p class="post-subtitle">
-            <!-- main body of blog preview -->
-                    {% block blog_post_list_post_content %}
-                    {% editable blog_post.content %}
-                    {{ blog_post.description_from_content|safe }}
-                    {% endeditable %}
-                    {% endblock %}
-            <!-- end of blog main body preview -->
-                  </p>
                 </a>
-                {% block blog_post_list_post_metainfo %}
-                <p class="post-meta">
-                    Posted: {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
-                </p>
-                 <p class="post-meta">
-                 {% with blog_post.categories.all as categories %}
+
+
+                <!-- subtitle -->
+                  <p class="post-subtitle">
+                    {% block blog_post_list_post_content %}
+                    {{ blog_post.description_from_content|safe }}
+                    {% endblock %}
+                  </p>
+
+
+
+                    {% block blog_post_list_post_metainfo %}
+
+
+                    <!-- tags -->
+                     <p class="post-category">
+                     {% with blog_post.categories.all as categories %}
                         {% if categories %}
-                        See also:
-                        <li><i class="icon-folder-open"></i>
-                        {% for category in categories %}
-                        <a class="badge badge-secondary" href="{% url "blog_post_list_category" category.slug %}">{{ category }}</a>{% if not forloop.last %} {% endif %}
-                        {% endfor %}
-                        </li>
+                            <ul class="tags">
+                                {% for category in categories %}
+                                    <li><a href="{% url "blog_post_list_category" category.slug %}" class="tag">{{ category }}</a></li>
+                                    {% if not forloop.last %} {% endif %}
+                                {% endfor %}
+                          </ul>
                         {% endif %}
                     {% endwith %}
-                 </p>
-                <p class="post-meta">
-                {% block read_more%}
-                    <a href="{{ blog_post.get_absolute_url }}">Continue reading -><i class="icon-angle-right"></i></a>
-                    {% endblock %}
-                </p>
-                {% endblock %}
-              </div>
-              <hr>
-         {% endblock %}
-    {% endfor %}
-    <!-- end of iteration --><nav aria-label="Page navigation example">
-             {% pagination_for blog_posts %}
+                     </p>
 
-</nav>
+                <div class="bottom" style="overflow: hidden;">
+                    <!-- post time -->
+                    <p style="float: right;">
+                        Posted: {% blocktrans with sometime=blog_post.publish_date|timesince %}{{ sometime }} ago{% endblocktrans %}
+                    </p>
+
+                    
+                    
+                    <!-- continue -->
+                    <p  style="float: left;">
+                    {% block read_more%}
+                        <a href="{{ blog_post.get_absolute_url }}">Continue read</a>
+                    {% endblock %}
+                    </p>
+                </div>
+
+                    {% endblock %}
+
+
+                  </div>
+
+                  <hr>
+             {% endblock %}
+        {% endfor %}
+        <div class="row paginate">
+                 {% pagination_for blog_posts %}
+        </div>
     </div>
 </div>
 {% endblock %}

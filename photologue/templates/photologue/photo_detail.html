@@ -8,33 +8,38 @@
 {% block main %}
 
     <div class="row">
-        <div class="col-lg-1 prev-img">
-            {% if object.public_galleries %}
-                        {% for gallery in object.public_galleries %}
-                           {% previous_in_gallery object gallery %}
-                        {% endfor %}
-                {% endif %}     
-        </div>
-        <div class="col-lg-10 display-img">
-	        <img src="{{ object.image.url }}" class="display" alt="{{ object.title }}">
-            <h1 class="page-header">{{ object.title }}</h1>
-            {% if object.caption %}<p>{{ object.caption|safe }}</p>{% endif %}
-            {% if object.public_galleries %}
+        <div class="col-lg-1">
+            <div class="row prev-next">
+                {% if object.public_galleries %}
                     {% for gallery in object.public_galleries %}
-                            <a href="{{ gallery.get_absolute_url }}" class="badge badge-light">{{ gallery.title }}</a>
+                       {% previous_in_gallery object gallery %}
                     {% endfor %}
-            {% endif %}  
-            <p class="muted"><small>{% trans "Published on" %} {{ object.date_added }}</small></p>
-            <p class="muted"><small>Taken on {{ object.date_taken }}</small></p>
-            <p class="muted"><small>Being viewed: {{ object.view_count }}</small></p>
-            <p class="muted"><small>Camera: {{ object.manufacture }}</small></p>
-        </div>
-        <div class="col-lg-1 next-img">
+                {% endif %}  
+            </div>
+            <div class="row prev-next">
             {% if object.public_galleries %}
                     {% for gallery in object.public_galleries %}
                         {% next_in_gallery object gallery %}
-					{% endfor %}
-			{% endif %}     
+                    {% endfor %}
+            {% endif %} 
+            </div>
+        </div>
+        <div class="col-lg-9 display-img">
+	        <img src="{{ object.image.url }}" class="display" alt="{{ object.title }}">
+            <img src="{{ object.get_display_url }}" style="display:none">
+            <h1 class="page-header">{{ object.title }}</h1>
+            {% if object.caption %}<p>{{ object.caption|safe }}</p>{% endif %}
+        </div>
+        <div class="col-lg-2">
+        {% if object.public_galleries %}
+            {% for gallery in object.public_galleries %}
+                    <a href="{{ gallery.get_absolute_url }}" class="badge badge-secondary">{{ gallery.title }}</a>
+            {% endfor %}
+            {% endif %}  
+            <p class="muted"><small>{% trans "Published on" %} {{ object.date_added }}</small></p>
+            {% if object.date_taken%}<p class="muted"><small>Taken on {{ object.date_taken }}</small></p>{% endif %}
+            <p class="muted"><small>Being viewed: {{ object.view_count }} times</small></p>
+            {% if object.manufacture %}<p class="muted"><small>Camera: {{ object.manufacture }}</small></p>{% endif %}
         </div>
     </div>
 

@@ -1,4 +1,7 @@
-{% load mezzanine_tags rating_tags i18n %}
+{% load mezzanine_tags rating_tags i18n staticfiles%}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/rating.css" %}">
+{% endblock %}
 
 <span id="rating-{{ rating_object.id }}">
     {% if rating_average %}

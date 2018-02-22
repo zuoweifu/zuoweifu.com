@@ -1,52 +1,115 @@
-<!-- extend from base.html -->
 {% extends "base.html" %}
 {% load i18n  mezzanine_tags staticfiles%}
-{% block extra_head %}
-<link rel="stylesheet" href="{% static "css/home.css" %}">
-{% endblock %}
-{% block meta_title %}{% trans "Home" %}{% endblock %}
-{% block title %}{% trans "Home" %}{% endblock %}
-{% block breadcrumb_wrapper %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/portfolio.css" %}">
+<link rel="stylesheet" href="{% static "css/timeline.css" %}">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 {% endblock %}
 
-{% block title_wrapper %}
-{% endblock %}
-
-{% block breadcrumb_menu %}
-<li class="active">{% trans "Home" %}</li>
-{% endblock %}
+{% block meta_title %}{% trans "Portfolio" %}{% endblock %}
+{% block title %}{% trans "Portfolio" %}{% endblock %}
 
 
-{% block all_content %}
-<section id="{% block section_id %}featured{% endblock %}">
-{% block left_wrapper %}
-{% endblock %}
-
-
-{% block main_wrapper %}
-<div class="col-md-{% block main_col_size %}none{% endblock %} {% block main_class %}{% endblock %}">
 {% block main %}
+    <div class="row">
+        <div class="container-fluid fill light-white-font">
+          <div id="home" class="container-fluid fill dark-gray-background">
+            <h1 class="center text-center">
+              <p style="font-size:30px;">Hi, my name is <strong class="middle-blue-font">Zuowei Fu.</strong></p>
+              <p style="font-size:24px;">I'm <span class="element"></span></p>
+              <p style="font-size:28px;">Here are my projects and experiences</p>
+            </h1>
+          </div>
+        </div>
+    </div>
+    <div class="row timeline">
+        <section id="cd-timeline" class="cd-container">
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-briefcase"></i> SOFTWARE ENGINEER</h2>
+                    <p><strong>T. HONG CO|Toronto,ON</strong></p>
+                    <p>&#8226; Independently developed an automatic perspective correction desktop application using <strong>OpenCV</strong> and Python</p>
+                    <p>&#8226; Fully stack web developer</p>
+                    <p>&#8226; User activity and customer characteristic analysis</p>
+                    <span class="cd-date">2016 Jan - May</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-laptop"></i> BONUSWEEKLY </h2>
+                    <p><strong>Web project</strong></p>
+                    <p>&#8226; Developed with Pyhton, Django, Javascript, html5 and CSS3.</p>
+                    <p>&#8226; Customized content management system</p>
+                    <a href="https://github.com/zuoweifu/casino"><i style="font-size:30px;" class="fab fa-github"></i></a>
+                    <span class="cd-date">2016 Feb - Apr  </span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-laptop"></i> Android based navigator</h2>
+                    <p><strong>Mobile app project</strong></p>
+                    <p>&#8226; An application that navigates the user from a specified position in a SVG
+    map to a desired destination avoiding obstacles</p>
+                    <p>&#8226; Data gathered from magnetic sensor and accelerometer are filtered to
+    determine user’s walking path and steps taken. GUI was integrated to provide a live update of user’s current position and next set of instructions</p>
+                    <a href="https://github.com/zuoweifu/ECE155"><i style="font-size:30px;" class="fab fa-github"></i></a>
+                    <span class="cd-date">2016 May - Aug &nbsp;</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-briefcase"></i> JUNIOR DEVELOPER/QA ANALYST INTERN</h2>
+                    <p><strong>LOTLINX INC | Hamilton, ON</strong></p>
+                    <p>&#8226; Fully engaged in data migration and Junit testing</p>
+                    <p>&#8226; Independently created Ruby scripts using Ruckdeck API for automatic file manipulation and performance inspection</p>
+                    <p>&#8226; Back-end development</p>
+                    <span class="cd-date">2016 Sep - Dec</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-briefcase"></i> Co-founder / System architect</h2>
+                    <p><strong>KICKS4LOVE | Waterloo, ON</strong></p>
+                    <p>&#8226; Launched Kicks4love at Velocity garage, worked as a full stack developer</p>
+                    <p>&#8226; In charge of front-end back-end web development using Ruby on rails and SQL,fully charge on User interface design</p>
+                    <p>&#8226; Over 10K followers on Instagram, 8K page view per day at peak</p>
+                    <a href="https://kicks4love.com/"><i style="font-size:30px;" class="fas fa-link"></i></a>
+                    <span class="cd-date">2017 May - Sep  &nbsp;</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img cd-picture">
+                </div> <!-- cd-timeline-img -->
+                <div class="cd-timeline-content">
+                    <h2><i class="fas fa-briefcase"></i> Inovation Software Engineer</h2>
+                    <p><strong>The Weather Network | Oakville, ON</strong></p>
+                    <p>&#8226; Cross-platform mobile app development using React Native/Node.js </p>
+                    <span class="cd-date">2018 Jan - Now</span>
+                </div> <!-- cd-timeline-content -->
+            </div> <!-- cd-timeline-block -->
+
+        </section> <!-- cd-timeline -->
+    </div>
+<br/>
+
+    
+
 
 {% endblock %}
-</div>
-{% endblock %}
-{% block right_wrapper %}
-{% endblock %}
-</section>
-
-
-<section class="callaction">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<img class="home-image" src="{% static "img/giphy.gif" %}"  >
-			</div>
-		</div>
-	</div>
-</section>
-
-
-{% endblock %}
-{% compress js %}
-<script src="{% static "js/home.js" %}"></script>
-{% endcompress %}

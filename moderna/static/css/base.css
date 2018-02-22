@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400,700');
-
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans');
 
  * {
 -webkit-box-sizing: border-box;
@@ -89,7 +89,7 @@ body {
     text-align: center;
 }
 .footer-copyright{
-    font-family: 'Indie Flower', cursive;
+   font-family: 'Alegreya Sans', sans-serif;
 }
 .social-icons{
     font-size: 40px;

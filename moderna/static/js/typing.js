@@ -1,5 +1,3 @@
-
-
 ! function($) {
 
     "use strict";
@@ -469,7 +467,7 @@ function handleEscKey() {
 
 function handleTyping () {
   $(".element").typed({
-    strings: ["a Software Engineer", "a family guy", "a bacon addicted"],
+    strings: ["a Developer", "a Photographer", "a Designer"],
     typeSpeed: 50,
     starDelay: 200,
     backDelay: 600,
