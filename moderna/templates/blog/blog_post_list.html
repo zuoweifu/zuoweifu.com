@@ -54,26 +54,28 @@
     </form>
  
     <div class="row recent-post-row">
-    {% block blog_recent_posts %}
-    {% blog_recent_posts 5 as recent_posts %}
-    {% if recent_posts %}
-    <h3>{% trans "Recent Posts" %}</h3>
-    <ul class="list-unstyled recent-posts">
-    {% for recent_post in recent_posts %}
-    <li class="recent-post">
-        {% spaceless %}
-        <a href="{{ recent_post.get_absolute_url }}">
-            {% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
-            <img src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 24 24 %}">
+        {% block blog_recent_posts %}
+          {% blog_recent_posts 5 as recent_posts %}
+            {% if recent_posts %}
+                <div class="row col-lg-12">
+                    <h3>{% trans "Recent Posts" %}</h3>
+                </div>
+                <ul class="row col-lg-12 list-unstyled recent-posts">
+                    {% for recent_post in recent_posts %}
+                        <li class="row col-lg-12 recent-post">
+                    {% spaceless %}
+                        <a href="{{ recent_post.get_absolute_url }}">
+                        {% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
+                        <img src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 24 24 %}">
+                        {% endif %}
+                    {{ recent_post.title }}
+                        </a>
+                     {% endspaceless %}
+                        </li>
+                    {% endfor %}
+                </ul>
             {% endif %}
-        {{ recent_post.title }}
-        </a>
-        {% endspaceless %}
-    </li>
-    {% endfor %}
-    </ul>
-    {% endif %}
-    {% endblock %}
+        {% endblock %}
     </div>
 
 
