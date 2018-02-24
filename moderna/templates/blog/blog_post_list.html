@@ -114,7 +114,7 @@
 
     </div>
 
-    <div class="col-lg-9">
+    <div class="col-lg-9 main">
 
         <!-- start of blog iteration -->
         {% for blog_post in blog_posts.object_list %}
@@ -173,7 +173,6 @@
                         <a href="{{ blog_post.get_absolute_url }}">Continue read</a>
                     {% endblock %}
                     </p>
-                    <a href="https://www.zuoweifu.com/#disqus_thread">Link</a>
                 </div>
 
                     {% endblock %}

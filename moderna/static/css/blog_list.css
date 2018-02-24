@@ -136,6 +136,9 @@ h1{
  padding-right: 10%;
 }
 @media only screen and (max-width:900px){
+  .main{
+    padding-top: 100px;
+  }
 
   .blog-main-body{
     padding-top: 0px;

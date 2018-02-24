@@ -1,5 +1,5 @@
 {% extends "blog/blog_post_list.html" %}
-{% load mezzanine_tags comment_tags keyword_tags rating_tags i18n disqus_tags staticfiles%}
+{% load mezzanine_tags blog_tags comment_tags keyword_tags rating_tags i18n disqus_tags staticfiles%}
 
 {% block meta_title %}{{ blog_post.meta_title }}{% endblock %}
 
@@ -38,7 +38,80 @@
 {% endblock %}
 
 {% block main %}
-    
+    <div class="row">
+        <div class="col-lg-3 blog-sidebar"> 
+
+
+    <form class="search-block" action="{% url "search" %}" role="search">
+    <div class="row search-input-row">
+    <input class="search-input" placeholder="{% trans "Type here" %}" type="text" name="q" value="{{ request.GET.q }}">
+    </div>
+    <div class="row">
+    <input type="submit" class="btn-block btn btn-secondary" value="{% trans "Search" %}">
+    </div>
+    </form>
+ 
+    <div class="row recent-post-row">
+        {% block blog_recent_posts %}
+          {% blog_recent_posts 5 as recent_posts %}
+            {% if recent_posts %}
+                <div class="row col-lg-12">
+                    <h3>{% trans "Recent Posts" %}</h3>
+                </div>
+                <ul class="row col-lg-12 list-unstyled recent-posts">
+                    {% for recent_post in recent_posts %}
+                        <li class="row col-lg-12 recent-post">
+                    {% spaceless %}
+                        <a href="{{ recent_post.get_absolute_url }}">
+                        {% if settings.BLOG_USE_FEATURED_IMAGE and recent_post.featured_image %}
+                        <img src="{{ MEDIA_URL }}{% thumbnail recent_post.featured_image 24 24 %}">
+                        {% endif %}
+                    {{ recent_post.title }}
+                        </a>
+                     {% endspaceless %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock %}
+    </div>
+
+
+    {% block blog_months %}
+    {% blog_months as months %}
+    {% if months %}
+    <h3>{% trans "Archive" %}</h3>
+    {% for month in months %}
+        {% ifchanged month.date.year %}
+            {% if not forloop.first %}</ul>{% endif %}
+            <h6>{{ month.date.year }}</h6><ul class="list-unstyled">
+        {% endifchanged %}
+        <li><a href="{% url "blog_post_list_month" year=month.date.year month=month.date.month %}"
+            >{{ month.date|date:"F" }}</a> ({{ month.post_count }})</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock %}
+
+
+
+    {% block blog_categories %}
+    {% blog_categories as categories %}
+    {% if categories %}
+    <h3>{% trans "Categories" %}</h3>
+    <ul class="list-unstyled">
+    {% for category in categories %}
+    <li><a href="{% url "blog_post_list_category" category.slug %}"
+        >{{ category }}</a> ({{ category.post_count }})</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock %}
+
+
+
+    </div>
+    <div class="col-lg-9 main">
     {% block blog_post_detail_sharebuttons %}
     {% set_short_url_for blog_post %}
         <div class="share-blog">
@@ -158,5 +231,6 @@ s.setAttribute('data-timestamp', +new Date());
 
 
 </div>
-
+</div>
+</div>
 {% endblock %}
