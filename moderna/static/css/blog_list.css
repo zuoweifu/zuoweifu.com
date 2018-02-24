@@ -148,11 +148,11 @@ h1{
   padding-top: 20px;
 }
 .blog-main-body img{
-  width: 100%;
+    max-width: 100%;
     height: auto;
 }
 .post-preview img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
 }
 
