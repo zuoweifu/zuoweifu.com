@@ -263,6 +263,7 @@ class ImageModel(models.Model):
                                on_delete=models.CASCADE)
     manufacture = models.CharField(max_length=200,null=True,
                                     blank=True,)
+    gallery = models.ManyToManyField('Gallery')
 
     class Meta:
         abstract = True
