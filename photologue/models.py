@@ -263,7 +263,6 @@ class ImageModel(models.Model):
                                on_delete=models.CASCADE)
     manufacture = models.CharField(max_length=200,null=True,
                                     blank=True,)
-    gallery = models.ManyToManyField('Gallery')
 
     class Meta:
         abstract = True
@@ -527,6 +526,10 @@ class Photo(ImageModel):
     sites = models.ManyToManyField(Site, verbose_name=_(u'sites'),
                                    blank=True)
 
+    gallery = models.ManyToManyField('photologue.Gallery',
+                                   through=Gallery.photos.through,
+                                   blank=True)
+    
     objects = PhotoQuerySet.as_manager()
 
     class Meta:
