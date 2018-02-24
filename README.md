@@ -18,8 +18,8 @@ This site is build with Django (1.10.8), Python (2.7) and SQLite (3.16.0).
  
 ## Features:
 **Flat design**
-![Gallery](/static/media/images/1.png)
+![Gallery](/moderna/static/img/images/1.png)
 
 **Responsive design**
-![Ipad Pro](/static/media/images/2.png)
-![Iphone 7](/static/media/images/3.png)
+![Ipad Pro](/moderna/static/img/images/2.png)
+![Iphone 7](/moderna/static/img/images/3.png)
