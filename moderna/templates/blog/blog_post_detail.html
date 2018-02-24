@@ -12,6 +12,27 @@
 {{ blog_post.description }}
 {% endmetablock %}{% endblock %}
 
+{% block blog_post_detail_commentlink %}
+<p>
+    {% if blog_post.allow_comments %}
+        {% if settings.COMMENTS_DISQUS_SHORTNAME %}
+            (<a href="{{ blog_post.get_absolute_url }}#disqus_thread"
+                data-disqus-identifier="{% disqus_id_for blog_post %}">{% spaceless %}
+                {% trans "Comments" %}
+            {% endspaceless %}</a>)
+        {% else %}(<a href="#comments">{% spaceless %}
+            {% blocktrans count comments_count=blog_post.comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}
+            {% endspaceless %}</a>)
+        {% endif %}
+    {% endif %}
+</p>
+{% endblock %}
+
+
+{% if settings.COMMENTS_DISQUS_SHORTNAME %}
+{% include "generic/includes/disqus_counts.html" %}
+{% endif %}
+
 {% block title %}
 {% editable blog_post.title %}{{ blog_post.title }}{% endeditable %}
 {% endblock %}
@@ -28,6 +49,7 @@
     {% endblock %} 
 
 	{% block blog_post_main%}
+    
 		{{ block.super }}
 		
 		{% block blog_post_list_post_content %}
@@ -112,6 +134,28 @@
     {% endblock %}
 
 -->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://zuoweifu.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 </div>
 
