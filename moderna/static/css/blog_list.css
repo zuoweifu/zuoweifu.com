@@ -29,7 +29,7 @@ input:focus {
       position: fixed;
       z-index: 1;
       width: 300px;
-      top: 50px;
+      top: 100px;
       overflow-x: hidden;
   }
   .main{
